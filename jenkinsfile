@@ -2,30 +2,33 @@ pipeline {
     agent any
     tools {
         maven 'Maven 3.9'
-        jdk 'jdk 8'
+        jdk 'jdk 8.2'
     }
+
     stages {
         stage('Initialize') {
-            steps {
-            
+            steps { 
+                sh '''
+                ls
+                '''
             }
         }
         stage('Build') {
             steps {
                 echo 'BUILD'
-                bat 'mvn clean install -DskipTests=true'
+                sh 'mvn clean install -DskipTests=true'
             }
         }
         stage('Test') {
             steps {
                 echo 'TEST'
-                bat 'mvn test'
+                sh 'mvn test'
             }
         }
         stage('Package') {
             steps {
                 echo 'PACKAGE'
-                bat 'mvn package'
+                sh 'mvn package'
             }
         }
         stage('Deploy') {
